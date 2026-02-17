@@ -4,6 +4,13 @@ import Link from 'next/link'
 import { deleteList } from '@/app/todos/actions'
 import { useState, useEffect } from 'react'
 import EditListModal from './EditListModal'
+import { motion } from 'motion/react'
+
+const rowAnimation = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.3, ease: 'easeOut' }
+}
 
 export default function TodoListTable({ lists }) {
     const [localLists, setLocalLists] = useState(lists)
@@ -35,67 +42,93 @@ export default function TodoListTable({ lists }) {
 
     if (lists.length === 0) {
         return (
-            <div className="text-center text-muted p-5 bg-light rounded">
-                <p className="mb-0">No lists yet. Click "Add List" to get started! 📝</p>
-            </div>
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-5"
+            >
+                <div className="mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <p className="text-muted mb-0">No lists yet. Click "Add List" to get started!</p>
+            </motion.div>
         )
     }
 
     return (
         <>
-            <div className="table-responsive">
-                <table className="table table-bordered align-middle">
+            <motion.div 
+                className="table-responsive"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+            >
+                <table className="table mb-0">
                     <thead>
                         <tr>
-                            <th scope="col" style={{width: '5%'}} className="text-center">S.NO</th>
-                            <th scope="col" style={{width: '25%'}}>Todo Name</th>
-                            <th scope="col" style={{width: '50%'}}>Description</th>
-                            <th scope="col" style={{width: '20%'}} className="text-end">Actions</th>
+                            <th scope="col" style={{width: '5%'}} className="text-center px-4 align-middle">#</th>
+                            <th scope="col" style={{width: '25%'}} className="px-4 align-middle">Todo Name</th>
+                            <th scope="col" style={{width: '50%'}} className="px-4 align-middle">Description</th>
+                            <th scope="col" style={{width: '20%'}} className="text-end px-4 align-middle">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {localLists.map((list, index) => (
-                            <tr key={list.id}>
-                                <td className="text-center text-muted">{index + 1}</td>
-                                <td className="fw-medium">
+                            <motion.tr 
+                                key={list.id}
+                                variants={rowAnimation}
+                                initial="initial"
+                                animate="animate"
+                            >
+                                <td className="text-center text-muted px-4 align-middle">{index + 1}</td>
+                                <td className="fw-medium px-4 align-middle">
                                     <Link 
                                         href={`/todos/${list.id}`} 
-                                        className="text-decoration-none text-dark d-block text-capitalize"
+                                        className="text-decoration-none text-dark todo-link"
                                     >
                                         {list.title}
                                     </Link>
                                 </td>
-                                <td className="text-muted small">
+                                <td className="text-muted px-4 align-middle">
                                     {list.description || <span className="text-secondary opacity-50">No description</span>}
                                 </td>
-                                <td className="text-end">
+                                <td className="text-end px-4 align-middle">
                                     <div className="d-flex justify-content-end gap-2">
-                                        <button 
-                                            className="btn btn-sm btn-outline-secondary"
+                                        <motion.button 
+                                            className="btn btn-sm"
+                                            style={{ background: '#f1f5f9', color: '#475569' }}
                                             onClick={() => setEditingList(list)}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
                                         >
                                             Edit
-                                        </button>
-                                        <Link 
-                                            href={`/todos/${list.id}`} 
-                                            className="btn btn-sm btn-outline-primary"
-                                        >
-                                            View
-                                        </Link>
-                                        <button 
-                                            className="btn btn-sm btn-outline-danger"
+                                        </motion.button>
+                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                            <Link 
+                                                href={`/todos/${list.id}`} 
+                                                className="btn btn-sm d-inline-block"
+                                                style={{ background: '#e0e7ff', color: '#4f46e5' }}
+                                            >
+                                                View
+                                            </Link>
+                                        </motion.div>
+                                        <motion.button 
+                                            className="btn btn-sm"
+                                            style={{ background: '#fee2e2', color: '#dc2626' }}
                                             onClick={() => handleDelete(list.id, list.title)}
                                             disabled={pendingIds.has(list.id)}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
                                         >
                                             {pendingIds.has(list.id) ? '...' : 'Delete'}
-                                        </button>
+                                        </motion.button>
                                     </div>
                                 </td>
-                            </tr>
+                            </motion.tr>
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </motion.div>
 
             {editingList && (
                 <EditListModal 

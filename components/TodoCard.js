@@ -2,6 +2,7 @@
 
 import { updateTodoStatus, deleteTodo, updateTodo } from '@/app/todos/actions'
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 
 export default function TodoCard({ todo, listId }) {
     const [isPending, setIsPending] = useState(false)
@@ -41,80 +42,135 @@ export default function TodoCard({ todo, listId }) {
 
     if (isEditing) {
         return (
-            <div className="border-bottom py-3">
-                <form onSubmit={handleSave}>
-                    <div className="mb-2">
-                        <input 
-                            type="text" 
-                            className="form-control form-control-sm mb-1" 
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            autoFocus
-                            disabled={isPending}
-                        />
-                        <textarea 
-                            className="form-control form-control-sm" 
-                            rows="2"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Description (optional)"
-                            disabled={isPending}
-                        ></textarea>
-                    </div>
-                    <div className="d-flex gap-2">
-                        <button type="submit" className="btn btn-sm btn-success" disabled={isPending}>Save</button>
-                        <button type="button" onClick={handleCancel} className="btn btn-sm btn-secondary" disabled={isPending}>Cancel</button>
-                    </div>
-                </form>
-            </div>
+            <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="card mb-3" 
+                style={{ border: 'none', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
+            >
+                <div className="card-body">
+                    <form onSubmit={handleSave}>
+                        <div className="mb-3">
+                            <input 
+                                type="text" 
+                                className="form-control mb-2" 
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                autoFocus
+                                disabled={isPending}
+                            />
+                            <textarea 
+                                className="form-control" 
+                                rows="2"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder="Description (optional)"
+                                disabled={isPending}
+                            ></textarea>
+                        </div>
+                        <div className="d-flex gap-2">
+                            <motion.button 
+                                type="submit" 
+                                className="btn btn-primary btn-sm" 
+                                disabled={isPending}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                Save
+                            </motion.button>
+                            <motion.button 
+                                type="button" 
+                                onClick={handleCancel} 
+                                className="btn btn-outline-secondary btn-sm" 
+                                disabled={isPending}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                Cancel
+                            </motion.button>
+                        </div>
+                    </form>
+                </div>
+            </motion.div>
         )
     }
 
     return (
-        <div className={`d-flex justify-content-between align-items-center border-bottom py-3 ${todo.completed ? 'opacity-50' : ''} group`}>
-            <div className="d-flex align-items-center flex-grow-1">
-                <input 
-                    type="checkbox" 
-                    className="form-check-input me-3 rounded-circle" 
-                    checked={todo.completed} 
-                    onChange={handleToggle}
-                    disabled={isPending}
-                    style={{cursor: 'pointer', width: '1.2em', height: '1.2em'}}
-                />
-                <div 
-                    onClick={() => setIsEditing(true)} 
-                    style={{cursor: 'pointer', flexGrow: 1}}
-                    title="Click to edit"
-                >
-                    <span className={`d-block ${todo.completed ? 'text-decoration-line-through' : 'fw-medium'}`}>
-                        {todo.title}
-                    </span>
-                    {todo.description && (
-                        <small className="text-muted d-block">
-                            {todo.description}
-                        </small>
-                    )}
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.2 }}
+            className="card mb-2" 
+            style={{ 
+                border: 'none', 
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                opacity: todo.completed ? 0.6 : 1,
+            }}
+        >
+            <div className="card-body p-3">
+                <div className="d-flex align-items-center">
+                    <motion.div 
+                        className="form-check me-3"
+                        style={{ cursor: 'pointer' }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        <input 
+                            type="checkbox" 
+                            className="form-check-input" 
+                            checked={todo.completed} 
+                            onChange={handleToggle}
+                            disabled={isPending}
+                            style={{ 
+                                cursor: 'pointer', 
+                                width: '1.25rem', 
+                                height: '1.25rem',
+                                borderRadius: '4px'
+                            }}
+                        />
+                    </motion.div>
+                    <div 
+                        className="flex-grow-1"
+                        onClick={() => setIsEditing(true)} 
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <span className={todo.completed ? 'text-decoration-line-through text-muted' : 'fw-medium'}>
+                            {todo.title}
+                        </span>
+                        {todo.description && (
+                            <small className="d-block text-muted" style={{ fontSize: '0.8rem' }}>
+                                {todo.description}
+                            </small>
+                        )}
+                    </div>
+                    <div className="d-flex align-items-center gap-1">
+                        <motion.button 
+                            onClick={() => setIsEditing(true)}
+                            className="btn btn-sm btn-link text-secondary p-1"
+                            aria-label="Edit todo"
+                            disabled={isPending}
+                            whileHover={{ scale: 1.2 }}
+                            whileTap={{ scale: 0.9 }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                        </motion.button>
+                        <motion.button 
+                            onClick={handleDelete} 
+                            className="btn btn-sm btn-link text-danger p-1"
+                            aria-label="Delete todo"
+                            disabled={isPending}
+                            whileHover={{ scale: 1.2 }}
+                            whileTap={{ scale: 0.9 }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                        </motion.button>
+                    </div>
                 </div>
             </div>
-            <div className="d-flex align-items-center gap-2">
-                 <button 
-                    onClick={() => setIsEditing(true)}
-                    className="btn btn-link text-secondary p-0 text-decoration-none fs-6 opacity-0 focus-opacity-100"
-                    aria-label="Edit todo"
-                    disabled={isPending}
-                    style={{transition: 'opacity 0.2s', opacity: 0.5}}
-                >
-                    ✎
-                </button>
-                <button 
-                    onClick={handleDelete} 
-                    className="btn btn-link text-danger p-0 text-decoration-none fs-5 opacity-50 hover-opacity-100"
-                    aria-label="Delete todo"
-                    disabled={isPending}
-                >
-                    &times;
-                </button>
-            </div>
-        </div>
+        </motion.div>
     )
 }
