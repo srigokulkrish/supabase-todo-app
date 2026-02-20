@@ -74,22 +74,19 @@ export default function TodoListTable({ lists }) {
                                 <td className="text-end px-4 align-middle">
                                     <div className="d-flex justify-content-end gap-2">
                                         <button 
-                                            className="btn btn-sm"
-                                            style={{ background: '#f1f5f9', color: '#475569' }}
+                                            className="btn btn-sm btn-edit-custom"
                                             onClick={() => setEditingList(list)}
                                         >
                                             Edit
                                         </button>
                                         <Link 
                                             href={`/todos/${list.id}`} 
-                                            className="btn btn-sm d-inline-block"
-                                            style={{ background: '#e0e7ff', color: '#4f46e5' }}
+                                            className="btn btn-sm btn-view-custom d-inline-block text-decoration-none"
                                         >
                                             View
                                         </Link>
                                         <button 
-                                            className="btn btn-sm"
-                                            style={{ background: '#fee2e2', color: '#dc2626' }}
+                                            className="btn btn-sm btn-delete-custom"
                                             onClick={() => handleDelete(list.id, list.title)}
                                             disabled={pendingIds.has(list.id)}
                                         >

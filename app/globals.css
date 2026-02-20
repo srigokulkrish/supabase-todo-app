@@ -186,3 +186,60 @@ body {
 .back-button-hover:hover {
   color: var(--primary-color) !important;
 }
+
+.btn-edit-custom {
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+}
+
+.btn-edit-custom:hover {
+  background: #475569 !important;
+  color: white !important;
+}
+
+.btn-view-custom {
+  background: #e0e7ff;
+  color: #4f46e5;
+  border: none;
+}
+
+.btn-view-custom:hover {
+  background: #4f46e5 !important;
+  color: white !important;
+}
+
+.btn-delete-custom {
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+}
+
+.btn-delete-custom:hover {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+.btn-icon-edit-custom {
+  color: #64748b;
+  border-radius: 50%;
+  padding: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-icon-edit-custom:hover {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.btn-icon-delete-custom {
+  color: #fca5a5;
+  border-radius: 50%;
+  padding: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-icon-delete-custom:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
