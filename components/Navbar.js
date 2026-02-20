@@ -20,8 +20,8 @@ export default function Navbar({ user, profile }) {
   }, [])
 
   return (
-    <nav className="navbar navbar-expand-lg border-bottom bg-white">
-      <div className="container py-2 py-lg-3">
+    <nav className="navbar navbar-expand-lg border-bottom sticky-top bg-white">
+      <div className="container py-2">
         <Link href="/" className="navbar-brand fw-bold d-flex align-items-center" style={{ color: '#6366f1', textDecoration: 'none' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="me-2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           <span className="d-none d-sm-inline">Supabase Todo</span>
@@ -36,12 +36,10 @@ export default function Navbar({ user, profile }) {
               type="button"
             >
               <div
-                className="rounded-circle overflow-hidden"
+                className="rounded-circle overflow-hidden bg-light"
                 style={{
-                  width: '36px',
-                  height: '36px',
-                  background: '#e2e8f0',
-                  border: '2px solid #6366f1',
+                  width: '32px',
+                  height: '32px',
                   cursor: 'pointer',
                   flexShrink: 0
                 }}
@@ -52,12 +50,12 @@ export default function Navbar({ user, profile }) {
                     alt="Profile" 
                     className="w-100 h-100"
                     style={{ objectFit: 'cover' }}
-                    width={36}
-                    height={36}
+                    width={32}
+                    height={32}
                   />
                 ) : (
                   <div className="w-100 h-100 d-flex align-items-center justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   </div>
                 )}
               </div>
