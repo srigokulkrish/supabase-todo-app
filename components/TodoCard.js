@@ -2,7 +2,6 @@
 
 import { updateTodoStatus, deleteTodo, updateTodo } from '@/app/todos/actions'
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
 
 export default function TodoCard({ todo, listId }) {
     const [isPending, setIsPending] = useState(false)
@@ -42,10 +41,7 @@ export default function TodoCard({ todo, listId }) {
 
     if (isEditing) {
         return (
-            <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
+            <div 
                 className="card mb-3" 
                 style={{ border: 'none', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
             >
@@ -70,38 +66,30 @@ export default function TodoCard({ todo, listId }) {
                             ></textarea>
                         </div>
                         <div className="d-flex gap-2">
-                            <motion.button 
+                            <button 
                                 type="submit" 
                                 className="btn btn-primary btn-sm" 
                                 disabled={isPending}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
                             >
                                 Save
-                            </motion.button>
-                            <motion.button 
+                            </button>
+                            <button 
                                 type="button" 
                                 onClick={handleCancel} 
                                 className="btn btn-outline-secondary btn-sm" 
                                 disabled={isPending}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
                             >
                                 Cancel
-                            </motion.button>
+                            </button>
                         </div>
                     </form>
                 </div>
-            </motion.div>
+            </div>
         )
     }
 
     return (
-        <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.2 }}
+        <div 
             className="card mb-2" 
             style={{ 
                 border: 'none', 
@@ -111,11 +99,9 @@ export default function TodoCard({ todo, listId }) {
         >
             <div className="card-body p-3">
                 <div className="d-flex align-items-center">
-                    <motion.div 
+                    <div 
                         className="form-check me-3"
                         style={{ cursor: 'pointer' }}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
                     >
                         <input 
                             type="checkbox" 
@@ -130,7 +116,7 @@ export default function TodoCard({ todo, listId }) {
                                 borderRadius: '4px'
                             }}
                         />
-                    </motion.div>
+                    </div>
                     <div 
                         className="flex-grow-1"
                         onClick={() => setIsEditing(true)} 
@@ -146,31 +132,27 @@ export default function TodoCard({ todo, listId }) {
                         )}
                     </div>
                     <div className="d-flex align-items-center gap-1">
-                        <motion.button 
+                        <button 
                             onClick={() => setIsEditing(true)}
                             className="btn btn-sm btn-link text-secondary p-1"
                             aria-label="Edit todo"
                             disabled={isPending}
-                            whileHover={{ scale: 1.2 }}
-                            whileTap={{ scale: 0.9 }}
                             style={{ textDecoration: 'none' }}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                        </motion.button>
-                        <motion.button 
+                        </button>
+                        <button 
                             onClick={handleDelete} 
                             className="btn btn-sm btn-link text-danger p-1"
                             aria-label="Delete todo"
                             disabled={isPending}
-                            whileHover={{ scale: 1.2 }}
-                            whileTap={{ scale: 0.9 }}
                             style={{ textDecoration: 'none' }}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                        </motion.button>
+                        </button>
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     )
 }

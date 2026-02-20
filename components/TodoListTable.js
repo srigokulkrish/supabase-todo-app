@@ -4,13 +4,6 @@ import Link from 'next/link'
 import { deleteList } from '@/app/todos/actions'
 import { useState, useEffect } from 'react'
 import EditListModal from './EditListModal'
-import { motion } from 'motion/react'
-
-const rowAnimation = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.3, ease: 'easeOut' }
-}
 
 export default function TodoListTable({ lists }) {
     const [localLists, setLocalLists] = useState(lists)
@@ -42,27 +35,18 @@ export default function TodoListTable({ lists }) {
 
     if (lists.length === 0) {
         return (
-            <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-5"
-            >
+            <div className="text-center py-5">
                 <div className="mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                 </div>
-                <p className="text-muted mb-0">No lists yet. Click "Add List" to get started!</p>
-            </motion.div>
+                <p className="text-muted mb-0">No lists yet. Click &quot;Add List&quot; to get started!</p>
+            </div>
         )
     }
 
     return (
         <>
-            <motion.div 
-                className="table-responsive"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-            >
+            <div className="table-responsive">
                 <table className="table mb-0">
                     <thead>
                         <tr>
@@ -74,12 +58,7 @@ export default function TodoListTable({ lists }) {
                     </thead>
                     <tbody>
                         {localLists.map((list, index) => (
-                            <motion.tr 
-                                key={list.id}
-                                variants={rowAnimation}
-                                initial="initial"
-                                animate="animate"
-                            >
+                            <tr key={list.id}>
                                 <td className="text-center text-muted px-4 align-middle">{index + 1}</td>
                                 <td className="fw-medium px-4 align-middle">
                                     <Link 
@@ -94,41 +73,35 @@ export default function TodoListTable({ lists }) {
                                 </td>
                                 <td className="text-end px-4 align-middle">
                                     <div className="d-flex justify-content-end gap-2">
-                                        <motion.button 
+                                        <button 
                                             className="btn btn-sm"
                                             style={{ background: '#f1f5f9', color: '#475569' }}
                                             onClick={() => setEditingList(list)}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
                                         >
                                             Edit
-                                        </motion.button>
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Link 
-                                                href={`/todos/${list.id}`} 
-                                                className="btn btn-sm d-inline-block"
-                                                style={{ background: '#e0e7ff', color: '#4f46e5' }}
-                                            >
-                                                View
-                                            </Link>
-                                        </motion.div>
-                                        <motion.button 
+                                        </button>
+                                        <Link 
+                                            href={`/todos/${list.id}`} 
+                                            className="btn btn-sm d-inline-block"
+                                            style={{ background: '#e0e7ff', color: '#4f46e5' }}
+                                        >
+                                            View
+                                        </Link>
+                                        <button 
                                             className="btn btn-sm"
                                             style={{ background: '#fee2e2', color: '#dc2626' }}
                                             onClick={() => handleDelete(list.id, list.title)}
                                             disabled={pendingIds.has(list.id)}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
                                         >
                                             {pendingIds.has(list.id) ? '...' : 'Delete'}
-                                        </motion.button>
+                                        </button>
                                     </div>
                                 </td>
-                            </motion.tr>
+                            </tr>
                         ))}
                     </tbody>
                 </table>
-            </motion.div>
+            </div>
 
             {editingList && (
                 <EditListModal 

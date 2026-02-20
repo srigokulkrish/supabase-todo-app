@@ -4,6 +4,7 @@ import TodoCard from '@/components/TodoCard'
 import { createClient } from '@/lib/supabase'
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
+import BackButton from '@/components/BackButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,17 +18,16 @@ export default async function ListDetailPage({ params }) {
         redirect('/login')
     }
 
-    const { data: list } = await supabase
-        .from('todo_lists')
-        .select('title')
-        .eq('id', id)
-        .single()
+    const [listResult, todos] = await Promise.all([
+        supabase.from('todo_lists').select('title').eq('id', id).single(),
+        getTodos(id)
+    ])
+    
+    const list = listResult.data
     
     if (!list) {
         return notFound()
     }
-
-    const todos = await getTodos(id)
 
     return (
         <div className="min-vh-100" style={{ background: '#f8fafc' }}>
@@ -37,15 +37,13 @@ export default async function ListDetailPage({ params }) {
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="me-2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                         Supabase Todo
                     </Link>
-                    <Link href="/todos" className="btn btn-outline-secondary btn-sm">
-                        Back to Lists
-                    </Link>
                 </div>
             </nav>
 
             <div className="container py-5">
-                <div className="mb-4">
-                    <h2 className="fw-bold mb-1">{list.title}</h2>
+                <div className="mb-4 d-flex align-items-center">
+                    <BackButton href="/todos" />
+                    <h2 className="fw-bold mb-0">{list.title}</h2>
                 </div>
 
                 <div className="row justify-content-center">

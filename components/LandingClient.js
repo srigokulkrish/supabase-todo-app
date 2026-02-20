@@ -1,7 +1,6 @@
 'use client'
 
 import Link from "next/link";
-import { motion } from 'motion/react'
 
 export default function LandingClient() {
   return (
@@ -19,47 +18,23 @@ export default function LandingClient() {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6 text-center">
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="hero-section mb-5"
-              >
-                <motion.h1 
-                  className="display-5 fw-bold mb-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
+              <div className="hero-section mb-5">
+                <h1 className="display-5 fw-bold mb-3">
                   Stay Organized, Get Things Done
-                </motion.h1>
-                <motion.p 
-                  className="lead mb-0 opacity-75"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
-                >
+                </h1>
+                <p className="lead mb-0 opacity-75">
                   A simple, secure, and modern todo list application built with Next.js 15 and Supabase.
-                </motion.p>
-              </motion.div>
+                </p>
+              </div>
               
-              <motion.div 
-                className="d-flex gap-3 justify-content-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-              >
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/login" className="btn btn-light btn-lg px-4 fw-medium">
-                    Log In
-                  </Link>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/signup" className="btn btn-outline-light btn-lg px-4 fw-medium">
-                    Sign Up
-                  </Link>
-                </motion.div>
-              </motion.div>
+              <div className="d-flex gap-3 justify-content-center">
+                <Link href="/login" className="btn btn-light btn-lg px-4 fw-medium">
+                  Log In
+                </Link>
+                <Link href="/signup" className="btn btn-outline-light btn-lg px-4 fw-medium">
+                  Sign Up
+                </Link>
+              </div>
             </div>
           </div>
         </div>

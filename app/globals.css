@@ -178,3 +178,11 @@ body {
 .todo-link:hover {
   color: #6366f1 !important;
 }
+
+.back-button-hover {
+  transition: color 0.2s ease;
+}
+
+.back-button-hover:hover {
+  color: var(--primary-color) !important;
+}

@@ -16,8 +16,10 @@ export default async function DashboardPage() {
         redirect('/login')
     }
 
-    const lists = await getLists()
-    const profile = await getProfile()
+    const [lists, profile] = await Promise.all([
+        getLists(),
+        getProfile()
+    ])
 
     return (
         <div className="min-vh-100" style={{ background: '#f8fafc' }}>
@@ -32,7 +34,7 @@ export default async function DashboardPage() {
                     <AddListModal />
                 </div>
 
-                <div className="card" style={{ border: 'none', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'visible' }}>
+                <div className='border border-radius-lg'>
                     <TodoListTable lists={lists} />
                 </div>
             </div>
