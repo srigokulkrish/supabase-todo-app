@@ -151,7 +151,7 @@ export default function LoginPage() {
               className="mt-4 text-center"
             >
               <p className="mb-0" style={{ color: '#64748b', fontSize: '0.9rem' }}>
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <Link href="/signup" style={{ color: '#6366f1', fontWeight: 500, textDecoration: 'none' }}>
                   Create one
                 </Link>

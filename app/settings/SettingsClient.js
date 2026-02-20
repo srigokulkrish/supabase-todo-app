@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { updateProfile, updateAvatar } from './actions'
 import { motion } from 'motion/react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -114,11 +115,13 @@ export default function SettingsClient({ profile: initialProfile }) {
                         }}
                       >
                         {profile.avatar_url ? (
-                          <img 
+                          <Image 
                             src={profile.avatar_url} 
                             alt="Profile" 
                             className="w-100 h-100"
                             style={{ objectFit: 'cover' }}
+                            width={100}
+                            height={100}
                           />
                         ) : (
                           <div className="w-100 h-100 d-flex align-items-center justify-content-center">
