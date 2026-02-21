@@ -174,28 +174,57 @@ on storage.objects for update
 using (bucket_id = 'avatars');
 ```
 
+### 7. Set Up Mobile App (Expo)
+
+The mobile app is located in the `mobile/` directory.
+
+1.  **Navigate to mobile directory**:
+    ```bash
+    cd mobile
+    ```
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Start the app**:
+    ```bash
+    npx expo start
+    ```
+4.  **Run on Device/Emulator**:
+    - Scan the QR code with **Expo Go** (Android) or **Camera** (iOS).
+    - Press `a` for Android or `i` for iOS.
+
 ---
 
 ## Development
 
-Run the development server:
-
+### Web App
+Run the development server in the root directory:
 ```bash
 npm run dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) to see the application.
+
+### Mobile App
+Run the development server in the `mobile/` directory:
+```bash
+cd mobile
+npx expo start
+```
 
 ---
 
 ## Deployment
 
-### Vercel
-
-1. Push your code to a Git repository (GitHub/GitLab/Bitbucket).
+### Web App (Vercel)
+1. Push your code to a Git repository.
 2. Connect your repository to Vercel.
-3. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to the environment variables in Vercel.
-4. Deploy!
+3. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to the environment variables.
+
+### Mobile App (EAS)
+1. Install EAS CLI: `npm install -g eas-cli`.
+2. Login: `eas login`.
+3. Build & Submit: `eas build`.
 
 ---
 
