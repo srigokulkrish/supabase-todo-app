@@ -28,11 +28,11 @@ function MainTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ color, size, focused }) => {
           if (route.name === 'Dashboard') {
-            return <LayoutDashboard size={size} color={color} />;
+            return <LayoutDashboard size={size} color={color} fill={focused ? color : 'none'} />;
           } else if (route.name === 'Profile') {
-            return <User size={size} color={color} />;
+            return <User size={size} color={color} fill={focused ? color : 'none'} />;
           }
         },
         tabBarActiveTintColor: '#3b82f6',
